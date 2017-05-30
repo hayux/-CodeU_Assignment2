@@ -16,63 +16,63 @@ class BinaryTree(object):
         self.right = right # a tree
 
 
-def findAncester(tree, poorKid):
-    # the first ancester of a node is itself
+def findAncestor(tree, poorKid):
+    # the first ancestor of a node is itself
 
     if tree is None:
-        # if tree is empty, no ancester
+        # if tree is empty, no ancestor
         return []
     elif tree.key == poorKid:
         return []
     elif tree.left == None or tree.right == None:
-        # a node without kids cannot be an ancester
+        # a node without kids cannot be an ancestor
         return []
     elif tree.left.key == poorKid or tree.right.key == poorKid:
-        # the direct ancester of a key
+        # the direct ancestor of a key
         return tree.key
     else:
-        # not a direct ancester, find in the subtrees
-        if findAncester(tree.left,poorKid): 
-            return findAncester(tree.left,poorKid)
-        if findAncester(tree.right,poorKid): 
-            return findAncester(tree.right,poorKid)
+        # not a direct ancestor, find in the subtrees
+        if findAncestor(tree.left,poorKid): 
+            return findAncestor(tree.left,poorKid)
+        if findAncestor(tree.right,poorKid): 
+            return findAncestor(tree.right,poorKid)
 
-def findAllAncester(tree,poorKid):
+def findAllAncestor(tree,poorKid):
     if tree is None:
         return None
         
     if tree.key == poorKid:
         return tree.key
         
-    # the treenode itself is its ancester
-    Ancester = [poorKid]
-    # append the direct ancester
-    if findAncester(tree,poorKid):
-        Ancester.append(findAncester(tree,poorKid))
+    # the treenode itself is its ancestor
+    Ancestor = [poorKid]
+    # append the direct ancestor
+    if findAncestor(tree,poorKid):
+        Ancestor.append(findAncestor(tree,poorKid))
     else:
         return None
         
-    if Ancester[-1] != tree.key:
+    if Ancestor[-1] != tree.key:
         # terminate if the tree root has been collected, 
-        # otherwise keep searching for ancester of the ancester
-        Ancester.append(findAncester(tree,Ancester[-1]))
-    return Ancester
+        # otherwise keep searching for ancestor of the ancestor
+        Ancestor.append(findAncestor(tree,Ancestor[-1]))
+    return Ancestor
     
-def findCommonAncester(tree,myKid, yourKid):
-    # find the ancesters of all kids, two lists are returned
-    myAncester = findAllAncester(tree, myKid)
-    yourAncester = findAllAncester(tree, yourKid)
+def findCommonAncestor(tree,myKid, yourKid):
+    # find the ancestor of all kids, two lists are returned
+    myAncestor = findAllAncestor(tree, myKid)
+    yourAncestor = findAllAncestor(tree, yourKid)
     
-    assert not (myAncester is None) or (yourAncester is None),'sorry kid, cannot find your parent'
+    assert not (myAncestor is None) or (yourAncestor is None),'sorry kid, cannot find your parent'
     
     # compare the two lists and find the first common item
-    if len(myAncester) >= len(yourAncester):
-        myAncester, yourAncester = yourAncester, myAncester
-        # myKid has less ancesters, is nearer to the node
-        # search from myAncesters
-    for ancester in myAncester:
-        if ancester in yourAncester:
-            return ancester
+    if len(myAncestor) >= len(yourAncestor):
+        myAncestor, yourAncestor = yourAncestor, myAncestor
+        # myKid has less ancestors, is nearer to the node
+        # search from myAncestors
+    for ancestor in myAncestor:
+        if ancestor in yourAncestor:
+            return ancestor
         
 
     
@@ -93,8 +93,8 @@ treeleft = BinaryTree('C',left, right)
 treeNew = BinaryTree('E', treeleft,BinaryTree('D'))
 #findAllAncester(treeNew,'B')
 #findAllAncester(treeNew,'A')
-print(findAllAncester(treeNew,'B'))
-print(findAllAncester(treeNew,'F'))
-print(findCommonAncester(treeNew,'B', 'A'))
+assert not (findAllAncestor(treeNew,'B')), 'cannot find your parents, poor kid'
+assert not (findAllAncestor(treeNew,'F')), 'cannot find your parents, poor kid'
+assert not (findCommonAncestor(treeNew,'B', 'A')), 'you don\'t have the same parent, poor kids'
         
     
