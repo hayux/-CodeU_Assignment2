@@ -63,7 +63,7 @@ def findCommonAncestor(tree,myKid, yourKid):
     myAncestor = findAllAncestor(tree, myKid)
     yourAncestor = findAllAncestor(tree, yourKid)
     
-    assert not (myAncestor is None) or (yourAncestor is None),'sorry kid, cannot find your parent'
+    assert myAncestor == None or yourAncestor == None,'sorry kid, cannot find your parent'
     
     # compare the two lists and find the first common item
     if len(myAncestor) >= len(yourAncestor):
@@ -82,8 +82,9 @@ def printTree(tree):
         printTree(tree.left)
         print(tree.key)
         printTree(tree.right)
-        
-# build a test tree   
+
+# test my tree
+# step1: --- build a test tree   
 #       E
 #     C, D
 #   A,B
@@ -91,10 +92,17 @@ left = BinaryTree('A')
 right = BinaryTree('B')
 treeleft = BinaryTree('C',left, right)
 treeNew = BinaryTree('E', treeleft,BinaryTree('D'))
-#findAllAncester(treeNew,'B')
-#findAllAncester(treeNew,'A')
-assert not (findAllAncestor(treeNew,'B')), 'cannot find your parents, poor kid'
-assert not (findAllAncestor(treeNew,'F')), 'cannot find your parents, poor kid'
-assert not (findCommonAncestor(treeNew,'B', 'A')), 'you don\'t have the same parent, poor kids'
+
+# step 2: --- test valid input (existing tree node)
+assert findAllAncestor(treeNew,'B') == ['B', 'C', 'E'], 'cannot find your parents, poor kid'
+
+# step 3: --- test invalid input (non-existing tree node)
+assert findAllAncestor(treeNew,'F')== None, 'cannot find your parents, poor kid'
+
+# step 4: --- test common ancestors with valid input
+assert findCommonAncestor(treeNew,'B', 'A') == ['C'], 'you don\'t have the same parent, poor kids'
+
+# step 5: --- test common ancesters with invalid input
+assert findCommonAncestor(treeNew,'F', 'A') == None, 'you don\'t have the same parent, poor kids'
         
     
