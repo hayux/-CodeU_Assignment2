@@ -32,10 +32,6 @@ def countIslands(nRow, nCol, boolArray):
     # step 1 -- turn boolean array into binary array, True = 1, False = 0
     myArray = turnBool2Binary(boolArray)
     
-#    # for test
-#    print(myArray)
-#    print(nRow)
-#    print(nCol)    
     
     # step2 -- count the number of islands in each row
     rowIsland = 0
@@ -46,24 +42,19 @@ def countIslands(nRow, nCol, boolArray):
             row = myArray[r]
             # count number of islands in each row and add up
             rowIsland = rowIsland + countOnes(row)
-#    # for test
-#    print(rowIsland)
+
     # step3 -- count the number of islands in each colomn
     
     # transpose myArray for colomn operation, colomns of original myArray becomes rows of transposed myArray
     colIsland = 0
     if nRow > 1:
         myArray = list(map(list,zip(*myArray)))
-#        print('transpose')
-#        print(myArray)
         for c in range(nCol):
             # get each colomn
             col = myArray[c]
             # count the number of islands in each colomn and add up
             colIsland = colIsland + countOnes(col)
-            
-    # for test
-#    print(colIsland)    
+              
     return rowIsland+colIsland
     
 def countOnes(row):
