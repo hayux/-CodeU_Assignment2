@@ -108,7 +108,10 @@ def countOnes(row):
     lengthList = [value for value in lengthList if value != 1]
     
     # 2 -- count the number of islands = sum(number of consecutive 1s - 1)
+    # if an island is only made of 2 tiles
     numIs = sum(lengthList)-len(lengthList)
+    # if an island is made of several consecutive tiles in a row
+    # then numIs = len(lengthList)
     
     return numIs
             
