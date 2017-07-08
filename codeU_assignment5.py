@@ -67,10 +67,14 @@ class Graph(object):
             - fromNode / toNode: Node object
             - direction (a string: 'left'/'right'/'down')
         """
-        if fromNode not in self.node_dict:
+        if fromNode.data not in self.node_vals:
             self.add_node(fromNode)
-        if toNode not in self.node_dict:
+        else:
+            fromNode = self.findNode(fromNode.data)
+        if toNode.data not in self.node_vals:
             self.add_node(toNode)
+        else:
+            toNode = self.findNode(toNode.data)
         
         fromNode.add_neighbour(toNode)
         # for test
