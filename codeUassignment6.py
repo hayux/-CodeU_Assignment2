@@ -25,7 +25,7 @@ def rearrangeCar(origArray, afterArray, swapList = None, lockPark = None):
     functions needed:
         - findSwapper
         - swap
-        - distance
+        - swapDistance
     O(n):
         - the fastest swapping path = upperbound(N/2)+1, N = length of array
         - each distance calculation scans all elements in array --> O(n)
@@ -120,6 +120,8 @@ def findSwapper(origArray, afterArray, swapList, lockPark):
         2. calculate the swapDistance between each candidateArray and afterArray
         3. select one candidateArray with minimum swapDistance as swappedArray
         4. return swap location and swappedArray
+    functions needed:
+        - swapAllLocation
     """
     candidateArray = swapAllLocation(origArray, swapList, lockPark)
 
@@ -163,10 +165,29 @@ def swapAllLocation(origArray, swapList, lockPark):
     return candidateArray
 
 
-# test case           
+# test case -- different locations        
 origArray = [1,5,4,3,0,2]
 afterArray = [5,0,2,4,1,3]
   
 swapList, locations = rearrangeCar(origArray, afterArray)
 
-assert (len(swapList)<=len(origArray)),'too slow'
+# test case -- different locations
+origArray = [6, 3, 13, 8, 9, 18, 1, 15, 14, 19, 11, 12, 17, 2, 16, 4, 7, 10, 0, 5]
+afterArray = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]
+  
+swapList, locations = rearrangeCar(origArray, afterArray)
+
+# test case -- long input
+origArray = list(range(1000))
+afterArray = list(range(1000))
+
+random.shuffle(origArray)
+random.shuffle(afterArray)
+  
+swapList, locations = rearrangeCar(origArray, afterArray)
+
+# test case -- same locations        
+origArray = [1,5,4,3,0,2]
+afterArray = [1,5,4,3,0,2]
+  
+swapList, locations = rearrangeCar(origArray, afterArray)
